@@ -24,8 +24,9 @@ public class MainActivity extends AppCompatActivity {
     boolean flag = true;
     String serviceData;
 
-    @Bind(R.id.tv_count) TextView tvCount;
     @Bind(R.id.btn_service_on_off) Button serviceBtn;
+    @Bind(R.id.step_count) TextView stepCount;
+    @Bind(R.id.step_detect) TextView stepDetect;
 
 
     @Override
@@ -45,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
             serviceBtn.setText("서비스종료");
 
             try {
-                IntentFilter mainFilter = new IntentFilter("kassia.k.step");
+                IntentFilter mainFilter = new IntentFilter();
+                mainFilter.addAction("kassia.k.step");
+                mainFilter.addAction("kassia.k.detector");
                 registerReceiver(receiver, mainFilter);
 
                 startService(intentService);
@@ -58,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Log.i("git", "서비스종료");
             serviceBtn.setText("서비스시작");
+            stepCount.setText("0");
+            stepDetect.setText("0");
 
             try {
                 unregisterReceiver(receiver);
@@ -77,9 +82,17 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            serviceData = intent.getStringExtra("serviceData");
-            tvCount.setText(serviceData);
-            Toast.makeText(getApplicationContext(), "걷는중..", Toast.LENGTH_SHORT).show();
+            String action = intent.getAction();
+            if(action.equals("kassia.k.step")) {
+                serviceData = intent.getStringExtra("serviceStepData");
+                Log.i("git", "넘어온 Counter 값 :: "+serviceData);
+                        stepCount.setText(serviceData);
+
+            } else if(action.equals("kassia.k.detector")) {
+                serviceData = intent.getStringExtra("serviceDetectorData");
+                Log.i("git", "넘어온 Detector 값 :: "+serviceData);
+                        stepDetect.setText(serviceData);
+            }
         }
     }
 

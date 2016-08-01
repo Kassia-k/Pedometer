@@ -6,6 +6,9 @@
         android:name="android.permission.INTERNET"
         android:required="true" />
 
+    <uses-feature android:name="android.hardware.sensor.stepcounter" />
+    <uses-feature android:name="android.hardware.sensor.stepdetector" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -13,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
