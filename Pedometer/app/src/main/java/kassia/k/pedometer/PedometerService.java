@@ -47,7 +47,7 @@ public class PedometerService extends Service implements SensorEventListener{
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.d("git", "service onCreate()");
+//        Log.d("git", "service onCreate()");
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 //        accelerormeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         counterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
@@ -60,7 +60,7 @@ public class PedometerService extends Service implements SensorEventListener{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.d("git", "service onStartCommand()");
+//        Log.d("git", "service onStartCommand()");
         if(counterSensor != null)
             sensorManager.registerListener(this, counterSensor, SensorManager.SENSOR_DELAY_UI);
         if(detectorSensor != null)
@@ -116,7 +116,7 @@ public class PedometerService extends Service implements SensorEventListener{
         Intent myFilterRes;
         switch (event.sensor.getType()) {
             case Sensor.TYPE_STEP_COUNTER:
-                Log.d("git", "TYPE_STEP_COUNTER :: "+event.values[0]);
+//                Log.d("git", "TYPE_STEP_COUNTER :: "+event.values[0]);
                 if(counterSteps < 1) {
                     counterSteps = (int)event.values[0];
                 }
@@ -129,7 +129,7 @@ public class PedometerService extends Service implements SensorEventListener{
                 break;
 
             case Sensor.TYPE_STEP_DETECTOR:
-                Log.d("git", "TYPE_STEP_DETECTOR :: "+event.values[0]);
+//                Log.d("git", "TYPE_STEP_DETECTOR :: "+event.values[0]);
                 stepDetector++;
                 myFilterRes = new Intent("kassia.k.detector");
                 msg = Integer.toString(stepDetector);

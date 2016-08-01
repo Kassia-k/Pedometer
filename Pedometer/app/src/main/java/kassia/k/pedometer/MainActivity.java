@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.btn_service_on_off)
     void serviceOnOff(){
         if(flag) {
-            Log.i("git", "서비스시작");
+//            Log.i("git", "서비스시작");
             serviceBtn.setText("서비스종료");
 
             try {
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         } else {
-            Log.i("git", "서비스종료");
+//            Log.i("git", "서비스종료");
             serviceBtn.setText("서비스시작");
             stepCount.setText("0");
             stepDetect.setText("0");
@@ -85,12 +85,10 @@ public class MainActivity extends AppCompatActivity {
             String action = intent.getAction();
             if(action.equals("kassia.k.step")) {
                 serviceData = intent.getStringExtra("serviceStepData");
-                Log.i("git", "넘어온 Counter 값 :: "+serviceData);
                         stepCount.setText(serviceData);
 
             } else if(action.equals("kassia.k.detector")) {
                 serviceData = intent.getStringExtra("serviceDetectorData");
-                Log.i("git", "넘어온 Detector 값 :: "+serviceData);
                         stepDetect.setText(serviceData);
             }
         }
